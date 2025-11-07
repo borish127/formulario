@@ -276,7 +276,7 @@ input[type=number] {
 
 .quantity-btn:disabled {
     color: #d1d5db;
-    cursor: not-allowed;
+    cursor: pointer;
     background-color: transparent;
 }
 

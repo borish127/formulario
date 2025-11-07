@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const numAdultosInput = document.getElementById('num-adultos');
     const numNinosInput = document.getElementById('num-ninos');
+    const numBebesInput = document.getElementById('num-bebes');
     const menuInputs = document.querySelectorAll('#page-5 .hidden-number-input');
     const menuIncreaseBtns = document.querySelectorAll('#page-5 [data-action="increase"]');
 
@@ -158,6 +159,49 @@ document.addEventListener('DOMContentLoaded', () => {
                 input.addEventListener('input', () => {
                     input.classList.remove('border-red-500', 'ring-red-500', 'form-invalid-shake');
                 }, { once: true }); // 'once: true' hace que el listener se quite solo
+            }
+        }
+
+        // Validación personalizada para la Página 3 (Detalles del Grupo)
+        if (isValid && currentPage === '3') {
+            const adultos = parseInt(numAdultosInput.value, 10) || 0;
+            const ninos = parseInt(numNinosInput.value, 10) || 0;
+            const bebes = parseInt(numBebesInput.value, 10) || 0;
+            const total = adultos + ninos + bebes;
+
+            if (total < 2) {
+                isValid = false; // Prevenir la navegación
+                const wrappers = activePage.querySelectorAll('.quantity-input-wrapper');
+                
+                // 1. Resetear todos los wrappers para que el shake se repita
+                wrappers.forEach(wrapper => {
+                    const visualInput = wrapper.querySelector('.quantity-input');
+                    if (visualInput) {
+                        visualInput.classList.remove('border-red-500', 'form-invalid-shake');
+                    }
+                });
+
+                // 2. Añadir error y shake a todos
+                wrappers.forEach(wrapper => {
+                    const visualInput = wrapper.querySelector('.quantity-input');
+                    const hiddenInput = wrapper.querySelector('.hidden-number-input');
+
+                    if (visualInput) {
+                        visualInput.classList.add('border-red-500'); // Borde fino (estilo radio)
+                        void visualInput.offsetWidth; // Forzar reflow para re-animar
+                        visualInput.classList.add('form-invalid-shake');
+                    }
+                    
+                    // 3. Añadir listener para limpiar el error
+                    hiddenInput.addEventListener('input', () => {
+                        wrappers.forEach(w => {
+                            const v = w.querySelector('.quantity-input');
+                            if (v) {
+                                v.classList.remove('border-red-500', 'form-invalid-shake');
+                            }
+                        });
+                    }, { once: true });
+                });
             }
         }
         

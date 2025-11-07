@@ -38,9 +38,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* --- TARJETA DE VIDRIO --- */
 .form-container {
-    background-color: rgba(255, 255, 255, 0.55); /* Blanco semi-transparente */
-    -webkit-backdrop-filter: blur(10px); /* Efecto vidrio para Safari */
-    backdrop-filter: blur(10px); /* Efecto vidrio estándar */
+    background-color: rgba(255, 255, 255, 0.5); /* Blanco semi-transparente */
+    -webkit-backdrop-filter: blur(8px); /* Efecto vidrio para Safari */
+    backdrop-filter: blur(8px); /* Efecto vidrio estándar */
     border: 1px solid rgba(255, 255, 255, 0.18); /* Borde sutil */
 }
 

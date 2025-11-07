@@ -1,33 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- CONSTANTES GLOBALES DEL FORMULARIO ---
     const form = document.getElementById('wedding-form');
     const pages = document.querySelectorAll('.page');
     
-    // --- CONSTANTES DE NAVEGACIÓN ---
     const navContainer = document.getElementById('navigation-buttons');
     const navButtons = document.querySelectorAll('[data-nav]');
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
     const submitBtn = document.getElementById('submit-btn');
 
-    // --- CONSTANTES LÓGICA "OTRO" ---
     const radioMenuSolo = document.querySelectorAll('input[name="menu_solo"]');
     const otroSoloContainer = document.getElementById('otro-solo-container');
     const otroMenuGrupoInput = document.getElementById('menu-otro');
     const otroGrupoContainer = document.getElementById('otro-grupo-container');
 
-    // --- CONSTANTES LÓGICA LÍMITE MENÚ ---
     const numAdultosInput = document.getElementById('num-adultos');
     const numNinosInput = document.getElementById('num-ninos');
     const menuInputs = document.querySelectorAll('#page-5 .hidden-number-input');
     const menuIncreaseBtns = document.querySelectorAll('#page-5 [data-action="increase"]');
 
-    // --- VARIABLES DE ESTADO ---
     let currentPage = 'portada';
     let pageHistory = ['portada']; // Historial para el botón "Anterior"
-    
-    // --- FUNCIONES DE NAVEGACIÓN ---
     
     /**
      * Muestra una página específica por su ID.
@@ -83,12 +76,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const inputs = activePage.querySelectorAll('[required]');
         let isValid = true;
 
+        // Almacena los grupos de radio ya validados en esta pasada
+        const processedRadioGroups = new Set();
+
+
         for (const input of inputs) {
-            // Resetear estilos de error
-            input.classList.remove('border-red-500', 'ring-red-500', 'form-invalid-shake');
-            const radioContainer = input.closest('.radio-option');
-            if (radioContainer) {
-                radioContainer.classList.remove('border-red-500', 'ring-2', 'ring-red-500', 'form-invalid-shake');
+            // Resetear estilos de error (SOLO para inputs que NO son radio)
+            if (input.type !== 'radio') {
+                input.classList.remove('border-red-500', 'ring-red-500', 'form-invalid-shake');
             }
             
             // No validar textareas "Otro" que estén ocultos
@@ -101,21 +96,68 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (input.type === 'radio') {
                 const groupName = input.name;
+                
+                // Si ya procesamos este grupo de radios, saltar.
+                if (processedRadioGroups.has(groupName)) {
+                    continue;
+                }
+                processedRadioGroups.add(groupName);
+
                 const checked = form.querySelector(`input[name="${groupName}"]:checked`);
+                // Marcar todas las opciones del grupo como inválidas
+                const allRadios = form.querySelectorAll(`input[name="${groupName}"]`);
+                
+                // PRIMERO, resetear el estado de error de TODOS los radios del grupo
+                allRadios.forEach(radio => {
+                    const container = radio.nextElementSibling;
+                    if(container && container.classList.contains('radio-option')) {
+                        container.classList.remove('border-red-500', 'form-invalid-shake');
+                    }
+                });
+
                 if (!checked) {
                     isValid = false;
-                    // Marcar todas las opciones del grupo como inválidas
-                    const allRadios = form.querySelectorAll(`input[name="${groupName}"]`);
+                    
                     allRadios.forEach(radio => {
-                        const container = radio.closest('.radio-option');
-                        if(container) {
-                            container.classList.add('border-red-500', 'ring-2', 'ring-red-500', 'form-invalid-shake');
+                        // Usar nextElementSibling para encontrar el span
+                        const container = radio.nextElementSibling;
+                        if(container && container.classList.contains('radio-option')) {
+                            // Se quitan 'ring-2' y 'ring-red-500' para un borde más fino
+                            container.classList.add('border-red-500');
+                            
+                            // Forzar un reflow (repintado) del navegador
+                            void container.offsetWidth; 
+                            // Añadir la clase de shake DESPUÉS del reflow para reiniciar la animación
+                            container.classList.add('form-invalid-shake');
+                            
+                            // Añadir listener para limpiar el error al seleccionar una opción
+                            radio.addEventListener('change', () => {
+                                // Cuando uno cambie, limpiar el error de todo el grupo
+                                const groupName = radio.name;
+                                const allRadiosInGroup = form.querySelectorAll(`input[name="${groupName}"]`);
+                                allRadiosInGroup.forEach(r => {
+                                    const c = r.nextElementSibling;
+                                    if (c && c.classList.contains('radio-option')) {
+                                        c.classList.remove('border-red-500', 'form-invalid-shake');
+                                    }
+                                });
+                            }, { once: true }); // 'once: true' hace que el listener se quite solo
                         }
                     });
                 }
             } else if (!input.value.trim()) {
                 isValid = false;
-                input.classList.add('border-red-500', 'ring-red-500', 'form-invalid-shake');
+                input.classList.add('border-red-500', 'ring-red-500');
+
+                // Forzar un reflow (repintado) del navegador
+                void input.offsetWidth;
+                // Añadir la clase de shake DESPUÉS del reflow para reiniciar la animación
+                input.classList.add('form-invalid-shake');
+
+                // Añadir listener para limpiar el error al empezar a escribir
+                input.addEventListener('input', () => {
+                    input.classList.remove('border-red-500', 'ring-red-500', 'form-invalid-shake');
+                }, { once: true }); // 'once: true' hace que el listener se quite solo
             }
         }
         
@@ -199,9 +241,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
-    // --- LÓGICA PARA SELECTORES DE CANTIDAD PERSONALIZADOS ---
-    
     /**
      * Inicializa todos los selectores de cantidad personalizados.
      */
@@ -264,8 +303,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- FUNCIÓN PARA RETROALIMENTACIÓN TÁCTIL ---
-    
     /**
      * Añade retroalimentación táctil inmediata para móviles
      * y maneja la lógica de scroll vs. tap en los radio buttons.
@@ -279,28 +316,27 @@ document.addEventListener('DOMContentLoaded', () => {
             
             let isDragging = false; // Flag para detectar el scroll
             const isRadio = el.classList.contains('radio-option');
+            const isQuantityBtn = el.classList.contains('quantity-btn');
             
             // Si es radio, {passive: true} (permite scroll).
-            // Si es botón, {passive: false} (previene scroll/vibración).
-            const options = { passive: isRadio };
+            // Si es botón de cantidad, {passive: false} (previene scroll/vibración).
+            const options = { passive: isRadio || !isQuantityBtn };
 
             const addActiveClass = (event) => {
                 
-                // --- INICIO DE LA CORRECCIÓN (Bug Teclado) ---
-                // Si se toca un radio y el foco está en un input (ej. "nombre"),
+                // Si se toca un radio o un botón de cantidad, y el foco está en un input,
                 // quitar el foco para que no se vuelva a abrir el teclado.
-                if (isRadio) {
+                if (isRadio || isQuantityBtn) {
                     const focusedElement = document.activeElement;
                     if (focusedElement && (focusedElement.tagName === 'INPUT' || focusedElement.tagName === 'TEXTAREA')) {
                         focusedElement.blur();
                     }
                 }
-                // --- FIN DE LA CORRECCIÓN ---
 
                 isDragging = false;
                 
-                // Solo prevenir 'default' (vibración) si NO es un radio
-                if (!isRadio) {
+                // (Solo prevenir default en botones de cantidad)
+                if (isQuantityBtn) {
                     event.preventDefault(); 
                 }
                 el.classList.add('js-active');
@@ -309,8 +345,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const removeActiveClass = () => {
                 el.classList.remove('js-active');
             };
-
-            // --- Listeners Táctiles ---
 
             el.addEventListener('touchstart', addActiveClass, options);
 
@@ -358,8 +392,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- FUNCIÓN PARA CERRAR TECLADO MÓVIL ---
-    
     /**
      * Cierra el teclado virtual en móviles cuando el usuario presiona "Enter" o "Ir".
      */
@@ -378,7 +410,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- EVENT LISTENERS (LÓGICA DE NEGOCIO) ---
+    /**
+     * Quita el foco de cualquier input/textarea activo.
+     * Esto es para cerrar el teclado en móviles.
+     */
+    function blurActiveElement() {
+        const focusedElement = document.activeElement;
+        if (focusedElement && (focusedElement.tagName === 'INPUT' || focusedElement.tagName === 'TEXTAREA')) {
+            focusedElement.blur();
+        }
+    }
 
     // Lógica para "Otro" (solo)
     radioMenuSolo.forEach(radio => {
@@ -405,6 +446,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event Listeners de Navegación (Siguiente/Anterior)
     navButtons.forEach(button => {
         button.addEventListener('click', () => {
+            // Ocultar el teclado antes de navegar
+            blurActiveElement();
+            
             const action = button.getAttribute('data-nav');
             if (action === 'next') {
                 navigateNext();
@@ -416,29 +460,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Listener para el botón de "Enviar"
     submitBtn.addEventListener('click', () => {
+        // Ocultar el teclado antes de enviar
+        blurActiveElement();
+        
         if (validateCurrentPage()) {
             // Simular envío y navegar a la página final
             console.log('Formulario enviado (simulado)');
             
             pageHistory.push('8');
             showPage('8');
-            
-            // Opcional: recolectar datos y mostrarlos
-            // const formData = new FormData(form);
-            // for (let [key, value] of formData.entries()) {
-            //     console.log(key, value);
-            // }
         }
     });
 
-    // --- INICIALIZACIÓN ---
     initializeKeyboardClose();
     initializeQuantityInputs();
     initializeTouchFeedback();
     showPage('portada'); // Mostrar la portada al cargar
 
-
-    // --- FUNCIÓN UTILITARIA ---
 
     /**
      * Comprueba si un evento táctil (touchend) ocurrió dentro

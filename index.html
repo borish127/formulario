@@ -5,38 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmación de Boda</title>
     
-    <!-- 1. Tailwind CSS CDN (Sigue siendo necesario para las clases de utilidad) -->
+    <!-- 1. Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- 2. Font Awesome CDN (para los iconos) -->
+    <!-- 2. Font Awesome CDN (Iconos) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    <!-- 3. Google Fonts -->
+    <!-- 3. Google Fonts (Playfair Display para títulos, Inter para cuerpo) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     
-    <!-- 4. Enlace a la hoja de estilos personalizada -->
+    <!-- 4. Hoja de estilos personalizada -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
 
-    <!-- Contenedor principal del formulario -->
-    <div class="bg-white w-full max-w-2xl rounded-xl shadow-2xl overflow-hidden">
+    <!-- Fondo difuminado -->
+    <div class="background-blur"></div>
+
+    <!-- Contenedor principal del formulario (Tarjeta "Glass") -->
+    <div class="form-container w-full max-w-2xl rounded-xl shadow-2xl overflow-hidden">
         
-        <!-- Encabezado (opcional) -->
-        <div class="p-8 bg-[#832729]">
+        <!-- Encabezado -->
+        <div class="p-8 form-header">
             <h1 class="text-3xl md:text-4xl font-bold text-center text-white">¡Nos Casamos!</h1>
-            <p class="text-center text-lg text-rose-100 mt-2">Y nos encantaría celebrar contigo</p>
+            <p class="text-center text-lg text-gray-400 mt-2">Y nos encantaría celebrar contigo</p>
         </div>
         
-        <!-- El formulario en sí -->
+        <!-- Formulario -->
         <form id="wedding-form" class="p-6 md:p-10">
 
             <!-- PÁGINA 0: PORTADA -->
             <section id="page-portada" class="page active">
                 <div class="text-center">
-                    <i class="fas fa-heart text-5xl text-[#B45F06] mb-6"></i>
+                    <i class="fas fa-heart text-5xl icon-primary mb-6"></i>
                     <h2 class="text-3xl font-bold mb-4">Confirma tu Asistencia</h2>
                     <p class="text-gray-600 text-lg mb-8">
                         Por favor, rellena este breve formulario para ayudarnos a organizar el gran día.
@@ -50,22 +53,22 @@
             <!-- PÁGINA 1: NOMBRE Y ASISTENCIA -->
             <section id="page-1" class="page">
                 <div class="space-y-8">
-                    <!-- Pregunta 1 -->
+                    <!-- Pregunta 1: Nombre -->
                     <div>
                         <label for="full-name" class="flex items-center text-xl font-semibold text-gray-800 mb-4">
-                            <i class="fas fa-user-edit text-2xl text-[#B45F06] w-8 mr-3"></i>
+                            <i class="fas fa-user-edit text-2xl icon-primary w-8 mr-3"></i>
                             Nombre completo
                         </label>
-                        <input type="text" id="full-name" name="full-name" class="form-input" placeholder="Tu nombre y apellido" required>
+                        <input type="text" id="full-name" name="full-name" class="form-input" placeholder="Tu nombre y apellido" required autocomplete="name">
                     </div>
                     
-                    <!-- Pregunta 2 -->
+                    <!-- Pregunta 2: Asistencia -->
                     <div>
-                        <h3 class="flex items-center text-xl font-semibold text-gray-800 mb-4">
-                            <i class="fas fa-heart text-2xl text-[#B45F06] w-8 mr-3"></i>
+                        <h3 class="flex items-center text-xl font-semibold text-gray-800 mb-3">
+                            <i class="fas fa-heart text-2xl icon-primary w-8 mr-3"></i>
                             ¿Asistirás a nuestra boda?
                         </h3>
-                        <div class="space-y-3">
+                        <div class="radio-group">
                             <label>
                                 <input type="radio" name="asistencia" value="si" class="hidden" required>
                                 <span class="radio-option">
@@ -86,11 +89,11 @@
             <!-- PÁGINA 2: GRUPO -->
             <section id="page-2" class="page">
                 <div>
-                    <h3 class="flex items-center text-xl font-semibold text-gray-800 mb-4">
-                        <i class="fas fa-user-friends text-2xl text-[#B45F06] w-8 mr-3"></i>
+                    <h3 class="flex items-center text-xl font-semibold text-gray-800 mb-3">
+                        <i class="fas fa-user-friends text-2xl icon-primary w-8 mr-3"></i>
                         ¿Vienes solo o asistirás en grupo familiar/pareja?
-                    </h3>
-                    <div class="space-y-3">
+                        </h3>
+                    <div class="radio-group">
                         <label>
                             <input type="radio" name="grupo" value="solo" class="hidden" required>
                             <span class="radio-option">
@@ -111,37 +114,73 @@
             <section id="page-3" class="page">
                 <h2 class="text-2xl font-bold mb-6 text-center">Detalles del Grupo</h2>
                 <div class="space-y-6">
-                    <!-- Pregunta 4 -->
+                    <!-- Pregunta 4: Adultos -->
                     <div>
                         <label for="num-adultos" class="flex items-center text-xl font-semibold text-gray-800 mb-3">
-                            <i class="fas fa-users text-2xl text-[#B45F06] w-8 mr-3"></i>
+                            <i class="fas fa-users text-2xl icon-primary w-8 mr-3"></i>
                             Número de adultos (incluyéndote)
                         </label>
-                        <input type="number" id="num-adultos" name="num-adultos" class="form-input" min="1" value="1" required>
+                        <!-- Selector de cantidad -->
+                        <div class="quantity-input-wrapper">
+                            <input type="number" id="num-adultos" name="num-adultos" class="hidden-number-input" min="1" value="1" required>
+                            <div class="quantity-input">
+                                <button type="button" class="quantity-btn" data-action="decrease" aria-label="Disminuir">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="text" class="quantity-value" value="1" readonly aria-live="polite">
+                                <button type="button" class="quantity-btn" data-action="increase" aria-label="Aumentar">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     
-                    <!-- Pregunta 5 -->
+                    <!-- Pregunta 5: Niños -->
                     <div>
                         <label for="num-ninos" class="flex items-center text-xl font-semibold text-gray-800 mb-3">
-                            <i class="fas fa-child text-2xl text-[#B45F06] w-8 mr-3"></i>
+                            <i class="fas fa-child text-2xl icon-primary w-8 mr-3"></i>
                             Número de niños (2-12 años)
                         </label>
-                        <input type="number" id="num-ninos" name="num-ninos" class="form-input" min="0" value="0" required>
+                        <!-- Selector de cantidad -->
+                        <div class="quantity-input-wrapper">
+                            <input type="number" id="num-ninos" name="num-ninos" class="hidden-number-input" min="0" value="0" required>
+                            <div class="quantity-input">
+                                <button type="button" class="quantity-btn" data-action="decrease" aria-label="Disminuir">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="text" class="quantity-value" value="0" readonly aria-live="polite">
+                                <button type="button" class="quantity-btn" data-action="increase" aria-label="Aumentar">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     
-                    <!-- Pregunta 6 -->
+                    <!-- Pregunta 6: Bebés -->
                     <div>
                         <label for="num-bebes" class="flex items-center text-xl font-semibold text-gray-800 mb-3">
-                            <i class="fas fa-baby text-2xl text-[#B45F06] w-8 mr-3"></i>
+                            <i class="fas fa-baby text-2xl icon-primary w-8 mr-3"></i>
                             Número de bebés (menor de 2 años)
                         </label>
-                        <input type="number" id="num-bebes" name="num-bebes" class="form-input" min="0" value="0" required>
+                        <!-- Selector de cantidad -->
+                        <div class="quantity-input-wrapper">
+                            <input type="number" id="num-bebes" name="num-bebes" class="hidden-number-input" min="0" value="0" required>
+                            <div class="quantity-input">
+                                <button type="button" class="quantity-btn" data-action="decrease" aria-label="Disminuir">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="text" class="quantity-value" value="0" readonly aria-live="polite">
+                                <button type="button" class="quantity-btn" data-action="increase" aria-label="Aumentar">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     
-                    <!-- Pregunta 7 -->
+                    <!-- Pregunta 7: Nombres -->
                     <div>
                         <label for="nombres-grupo" class="flex items-center text-xl font-semibold text-gray-800 mb-3">
-                            <i class="fas fa-pencil-alt text-2xl text-[#B45F06] w-8 mr-3"></i>
+                            <i class="fas fa-pencil-alt text-2xl icon-primary w-8 mr-3"></i>
                             Escribe los nombres de cada uno
                         </label>
                         <textarea id="nombres-grupo" name="nombres-grupo" class="form-textarea" placeholder="Ej: Maria Gonzalez, Juan Perez..." required></textarea>
@@ -152,11 +191,11 @@
             <!-- PÁGINA 4: MENÚ SOLO -->
             <section id="page-4" class="page">
                 <div>
-                    <h3 class="flex items-center text-xl font-semibold text-gray-800 mb-4">
-                        <i class="fas fa-utensils text-2xl text-[#B45F06] w-8 mr-3"></i>
+                    <h3 class="flex items-center text-xl font-semibold text-gray-800 mb-3">
+                        <i class="fas fa-utensils text-2xl icon-primary w-8 mr-3"></i>
                         Selecciona el menú de tu preferencia
-                    </h3>
-                    <div class="space-y-3">
+                        </h3>
+                    <div class="radio-group">
                         <label><input type="radio" name="menu_solo" value="carne" class="hidden" required><span class="radio-option">Carne</span></label>
                         <label><input type="radio" name="menu_solo" value="vegetariano" class="hidden"><span class="radio-option">Vegetariano</span></label>
                         <label><input type="radio" name="menu_solo" value="vegano" class="hidden"><span class="radio-option">Vegano</span></label>
@@ -177,7 +216,7 @@
             <section id="page-5" class="page">
                 <div>
                     <h3 class="flex items-center text-xl font-semibold text-gray-800 mb-4">
-                        <i class="fas fa-utensils text-2xl text-[#B45F06] w-8 mr-3"></i>
+                        <i class="fas fa-utensils text-2xl icon-primary w-8 mr-3"></i>
                         Selecciona la cantidad por cada menú
                     </h3>
                     <p class="text-gray-600 mb-6">Contando cada integrante del grupo (adultos y niños), indica cuántos menús de cada tipo necesitan.</p>
@@ -185,27 +224,99 @@
                     <div class="space-y-4">
                         <div class="flex items-center justify-between">
                             <label for="menu-carne" class="font-medium text-gray-700">Carne</label>
-                            <input type="number" id="menu-carne" name="menu-carne" class="form-input w-24 text-center" min="0" value="0">
+                            <!-- Selector de cantidad -->
+                            <div class="quantity-input-wrapper">
+                                <input type="number" id="menu-carne" name="menu-carne" class="hidden-number-input" min="0" value="0">
+                                <div class="quantity-input">
+                                    <button type="button" class="quantity-btn" data-action="decrease" aria-label="Disminuir">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="text" class="quantity-value" value="0" readonly aria-live="polite">
+                                    <button type="button" class="quantity-btn" data-action="increase" aria-label="Aumentar">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div class="flex items-center justify-between">
                             <label for="menu-vegetariano" class="font-medium text-gray-700">Vegetariano</label>
-                            <input type="number" id="menu-vegetariano" name="menu-vegetariano" class="form-input w-24 text-center" min="0" value="0">
+                            <!-- Selector de cantidad -->
+                            <div class="quantity-input-wrapper">
+                                <input type="number" id="menu-vegetariano" name="menu-vegetariano" class="hidden-number-input" min="0" value="0">
+                                <div class="quantity-input">
+                                    <button type="button" class="quantity-btn" data-action="decrease" aria-label="Disminuir">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="text" class="quantity-value" value="0" readonly aria-live="polite">
+                                    <button type="button" class="quantity-btn" data-action="increase" aria-label="Aumentar">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div class="flex items-center justify-between">
                             <label for="menu-vegano" class="font-medium text-gray-700">Vegano</label>
-                            <input type="number" id="menu-vegano" name="menu-vegano" class="form-input w-24 text-center" min="0" value="0">
+                            <!-- Selector de cantidad -->
+                            <div class="quantity-input-wrapper">
+                                <input type="number" id="menu-vegano" name="menu-vegano" class="hidden-number-input" min="0" value="0">
+                                <div class="quantity-input">
+                                    <button type="button" class="quantity-btn" data-action="decrease" aria-label="Disminuir">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="text" class="quantity-value" value="0" readonly aria-live="polite">
+                                    <button type="button" class="quantity-btn" data-action="increase" aria-label="Aumentar">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div class="flex items-center justify-between">
                             <label for="menu-sin-gluten" class="font-medium text-gray-700">Sin gluten</label>
-                            <input type="number" id="menu-sin-gluten" name="menu-sin-gluten" class="form-input w-24 text-center" min="0" value="0">
+                            <!-- Selector de cantidad -->
+                            <div class="quantity-input-wrapper">
+                                <input type="number" id="menu-sin-gluten" name="menu-sin-gluten" class="hidden-number-input" min="0" value="0">
+                                <div class="quantity-input">
+                                    <button type="button" class="quantity-btn" data-action="decrease" aria-label="Disminuir">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="text" class="quantity-value" value="0" readonly aria-live="polite">
+                                    <button type="button" class="quantity-btn" data-action="increase" aria-label="Aumentar">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div class="flex items-center justify-between">
                             <label for="menu-sin-lactosa" class="font-medium text-gray-700">Sin lactosa</label>
-                            <input type="number" id="menu-sin-lactosa" name="menu-sin-lactosa" class="form-input w-24 text-center" min="0" value="0">
+                            <!-- Selector de cantidad -->
+                            <div class="quantity-input-wrapper">
+                                <input type="number" id="menu-sin-lactosa" name="menu-sin-lactosa" class="hidden-number-input" min="0" value="0">
+                                <div class="quantity-input">
+                                    <button type="button" class="quantity-btn" data-action="decrease" aria-label="Disminuir">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="text" class="quantity-value" value="0" readonly aria-live="polite">
+                                    <button type="button" class="quantity-btn" data-action="increase" aria-label="Aumentar">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div class="flex items-center justify-between">
                             <label for="menu-otro" class="font-medium text-gray-700">Otro</label>
-                            <input type="number" id="menu-otro" name="menu-otro" class="form-input w-24 text-center" min="0" value="0">
+                            <!-- Selector de cantidad -->
+                            <div class="quantity-input-wrapper">
+                                <input type="number" id="menu-otro" name="menu-otro" class="hidden-number-input" min="0" value="0">
+                                <div class="quantity-input">
+                                    <button type="button" class="quantity-btn" data-action="decrease" aria-label="Disminuir">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="text" class="quantity-value" value="0" readonly aria-live="polite">
+                                    <button type="button" class="quantity-btn" data-action="increase" aria-label="Aumentar">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
@@ -220,13 +331,13 @@
             <!-- PÁGINA 6: NO ASISTE -->
             <section id="page-6" class="page">
                 <div class="text-center">
-                    <i class="far fa-envelope-open text-5xl text-[#B45F06] mb-6"></i>
+                    <i class="far fa-envelope-open text-5xl icon-primary mb-6"></i>
                     <h2 class="text-3xl font-bold mb-4">Lamentamos no contar con tu presencia</h2>
                     <p class="text-gray-600 text-lg mb-8">
                         ¡Igualmente te enviamos un fuerte abrazo!
                     </p>
                     <label for="mensaje-no-asiste" class="flex items-center text-xl font-semibold text-gray-800 mb-3">
-                        <i class="fas fa-pencil-alt text-2xl text-[#B45F06] w-8 mr-3"></i>
+                        <i class="fas fa-pencil-alt text-2xl icon-primary w-8 mr-3"></i>
                         ¿Quieres dejar algún mensaje para la pareja?
                     </label>
                     <textarea id="mensaje-no-asiste" name="mensaje-no-asiste" class="form-textarea" placeholder="Escribe tu mensaje aquí..."></textarea>
@@ -236,13 +347,13 @@
             <!-- PÁGINA 7: SI ASISTE - MENSAJE -->
             <section id="page-7" class="page">
                 <div class="text-center">
-                    <i class="fas fa-glass-cheers text-5xl text-[#B45F06] mb-6"></i>
+                    <i class="fas fa-glass-cheers text-5xl icon-primary mb-6"></i>
                     <h2 class="text-3xl font-bold mb-4">¡Gracias por completar!</h2>
                     <p class="text-gray-600 text-lg mb-8">
                         ¡Te esperamos para celebrar juntos!
                     </p>
                     <label for="mensaje-si-asiste" class="flex items-center text-xl font-semibold text-gray-800 mb-3">
-                        <i class="fas fa-pencil-alt text-2xl text-[#B45F06] w-8 mr-3"></i>
+                        <i class="fas fa-pencil-alt text-2xl icon-primary w-8 mr-3"></i>
                         ¿Quieres dejar algún mensaje para la pareja?
                     </label>
                     <textarea id="mensaje-si-asiste" name="mensaje-si-asiste" class="form-textarea" placeholder="Escribe tu mensaje aquí..."></textarea>
@@ -252,14 +363,14 @@
             <!-- PÁGINA 8: FINAL -->
             <section id="page-8" class="page">
                 <div class="text-center">
-                    <i class="fas fa-gift text-5xl text-[#B45F06] mb-6"></i>
+                    <i class="fas fa-gift text-5xl icon-primary mb-6"></i>
                     <h2 class="text-3xl font-bold mb-4">¡Formulario Enviado!</h2>
                     <p class="text-gray-600 text-lg mb-8">
                         Tu respuesta ha sido registrada. ¡Muchas gracias!
                     </p>
                     <a href="https://www.google.com" target="_blank" class="btn-primary inline-flex items-center">
-                        <i class="fas fa-map-marker-alt mr-2"></i>
-                        Ver ubicación del evento
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        Volver a la invitación
                     </a>
                 </div>
             </section>

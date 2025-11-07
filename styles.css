@@ -1,71 +1,129 @@
-/* Usamos Inter como fuente base y Playfair Display para títulos */
+/* --- DEFINICIÓN DE VARIABLES DE COLOR --- */
+:root {
+    --color-principal: #827e48;
+    --color-secundario: #2e2b01;
+    --color-fondo-claro: #8f8b5b;
+    --color-texto-oscuro: #262401;
+    --color-blanco: white;
+}
+
+/* --- ESTILO PARA EL FONDO --- */
+.background-blur {
+     position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100lvh;
+    z-index: -10; /* Detrás de todo el contenido */
+    /* ¡Asegúrate de que esta imagen exista en tu directorio! */
+    background-image: url('portada-01.webp');
+    background-color: rgba(0, 0, 0, 0.5);
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: 40% 63%;
+    filter: blur(8px); /* El efecto de difuminado */
+    transform: scale(1.1); /* Evita bordes difuminados */
+}
+
+/* --- ESTILOS BASE --- */
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #FFFBF7; /* Un tono crema/beige muy claro */
+    background-color: var(--color-secundario);
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
-    color: #832729; /* Un tono vino/borgoña oscuro */
+    color: var(--color-texto-oscuro);
 }
 
-/* NOTA: Las clases @apply de Tailwind deben ser procesadas por Tailwind.
-Si usas este CSS directamente sin un proceso de build (como en el ejemplo),
-las clases @apply no funcionarán. 
+/* --- TARJETA DE VIDRIO --- */
+.form-container {
+    background-color: rgba(255, 255, 255, 0.55); /* Blanco semi-transparente */
+    -webkit-backdrop-filter: blur(10px); /* Efecto vidrio para Safari */
+    backdrop-filter: blur(10px); /* Efecto vidrio estándar */
+    border: 1px solid rgba(255, 255, 255, 0.18); /* Borde sutil */
+}
 
-Para que funcione como en el HTML original, mantendremos las clases de Tailwind
-directamente en el HTML y usaremos este CSS solo para los estilos base.
-Si quisieras usar @apply, necesitarías configurar un entorno de build de Tailwind.
+.form-header {
+    background-color: var(--color-secundario);
+}
 
-Aquí dejaremos las clases que *no* son de Tailwind y las que personalizan
-elementos base.
-*/
+.icon-primary {
+    color: var(--color-principal);
+}
 
-/* Estilo para los botones principales (convertido de @apply a CSS puro) */
+/* --- BOTONES --- */
 .btn-primary {
-    background-color: #B45F06;
-    color: white;
+    background-color: var(--color-principal);
+    color: var(--color-blanco);
     font-weight: 700;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     transition: all 0.3s ease-in-out;
+    /* Prevenir selección de texto y menú contextual */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.btn-primary:hover {
-    background-color: #a05405;
+/* Respuesta táctil */
+.btn-primary:active,
+.btn-primary.js-active {
+    background-color: var(--color-secundario);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     transform: translateY(-2px);
 }
 
-/* Estilo para botones secundarios (Anterior) (convertido de @apply a CSS puro) */
+/* Solo aplicar :hover en dispositivos con ratón (PC) */
+@media (hover: hover) {
+    .btn-primary:hover {
+        background-color: var(--color-secundario);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        transform: translateY(-2px);
+    }
+}
+
 .btn-secondary {
-    background-color: #e5e7eb; /* bg-gray-200 */
-    color: #374151; /* text-gray-700 */
-    font-weight: 500; /* font-medium */
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    background-color: #e5e7eb;
+    color: #374151;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
     transition: all 0.3s ease-in-out;
+    /* Prevenir selección de texto y menú contextual */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.btn-secondary:hover {
-    background-color: #d1d5db; /* hover:bg-gray-300 */
+/* Respuesta táctil */
+.btn-secondary:active,
+.btn-secondary.js-active {
+    background-color: #d1d5db;
 }
 
-/* Clase para las "páginas" del formulario */
+/* Solo aplicar :hover en dispositivos con ratón (PC) */
+@media (hover: hover) {
+    .btn-secondary:hover {
+        background-color: #d1d5db;
+    }
+}
+
+/* --- PÁGINAS --- */
 .page {
-    display: none; /* Oculto por defecto */
-    animation: fadeIn 0.5s ease-in-out; /* Animación de entrada */
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .page.active {
-    display: block; /* Visible cuando está activo */
+    display: block;
 }
 
 @keyframes fadeIn {
@@ -79,20 +137,20 @@ elementos base.
     }
 }
 
-/* Estilos para inputs (convertido de @apply a CSS puro) */
+/* --- ESTILOS DE FORMULARIO (INPUTS, TEXTAREA) --- */
 .form-input, .form-textarea, .form-select {
     width: 100%;
     padding: 0.75rem 1rem;
-    border: 1px solid #d1d5db; /* border-gray-300 */
-    border-radius: 0.5rem; /* rounded-lg */
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     transition: all 0.3s;
 }
 
 .form-input:focus, .form-textarea:focus, .form-select:focus {
     outline: none;
     border-color: transparent;
-    --tw-ring-color: #B45F06;
+    --tw-ring-color: var(--color-principal);
     --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
     --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
     box-shadow: 0 0 0 0 #fff, var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
@@ -102,28 +160,164 @@ elementos base.
     min-height: 120px;
 }
 
-/* Estilos para opciones de radio personalizadas (convertido de @apply a CSS puro) */
+/* --- OPCIONES DE RADIO --- */
 .radio-option {
     display: block;
     width: 100%;
     padding: 1rem 1.25rem;
-    border: 1px solid #d1d5db; /* border-gray-300 */
-    border-radius: 0.5rem; /* rounded-lg */
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
     cursor: pointer;
     transition: all 0.2s;
+    /* Prevenir selección de texto y menú contextual */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.radio-option:hover {
-    border-color: #B45F06;
-    background-color: #fffbeb; /* bg-amber-50 */
+/* Espaciado entre opciones de radio (reemplaza 'space-y-5') */
+.radio-group > label {
+    margin-bottom: 0.25rem; 
+    display: block;
+}
+.radio-group > label:last-child {
+    margin-bottom: 0; /* El último elemento no necesita espacio */
 }
 
-/* Estilo para el radio chequeado (usa CSS en lugar de JS) */
+/* Respuesta táctil */
+.radio-option:active,
+.radio-option.js-active {
+    border-color: var(--color-principal);
+    background-color: rgba(143, 139, 91, 0.1);
+}
+
+/* Solo aplicar :hover en dispositivos con ratón (PC) */
+@media (hover: hover) {
+    .radio-option:hover {
+        border-color: var(--color-principal);
+        background-color: rgba(143, 139, 91, 0.1);
+    }
+}
+
+/* Estilo para el radio chequeado */
 input[type="radio"]:checked + .radio-option {
-    border-color: #B45F06;
-    background-color: rgba(180, 95, 6, 0.1);
-    --tw-ring-color: #B45F06;
+    border-color: var(--color-principal);
+    background-color: rgba(130, 126, 72, 0.1);
+    --tw-ring-color: var(--color-principal);
     --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
     --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
     box-shadow: 0 0 0 0 #fff, var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+/* --- SELECTOR DE CANTIDAD (SPIN BUTTON) --- */
+
+/* Ocultar el input[type="number"] original */
+.hidden-number-input {
+    display: none;
+}
+
+/* Ocultar spinners nativos (buena práctica) */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Contenedor del componente visual */
+.quantity-input {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border-radius: 9999px; /* Forma de píldora */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+    width: 140px;
+}
+
+/* Botones + y - */
+.quantity-btn {
+    background-color: transparent;
+    border: none;
+    padding: 0.7rem 1rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #374151;
+    transition: background-color 0.2s ease;
+    line-height: 1;
+    /* Prevenir selección de texto y menú contextual */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Respuesta táctil */
+.quantity-btn:active,
+.quantity-btn.js-active {
+    background-color: #f3f4f6;
+}
+
+/* Solo aplicar :hover en dispositivos con ratón (PC) */
+@media (hover: hover) {
+    .quantity-btn:hover {
+        background-color: #f3f4f6;
+    }
+}
+
+.quantity-btn:disabled {
+    color: #d1d5db;
+    cursor: not-allowed;
+    background-color: transparent;
+}
+
+/* Campo de texto visual para el número */
+.quantity-value {
+    border: none;
+    background-color: transparent;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: #1f2937;
+    width: 40px;
+    pointer-events: none; /* No se puede seleccionar */
+    padding: 0;
+    box-shadow: none;
+    outline: none;
+    line-height: 1;
+}
+
+/* Ajuste para alinear los selectores de la página 5 */
+#page-5 .quantity-input-wrapper {
+    /* Asegura que el contenedor no ocupe todo el ancho */
+    display: inline-block;
+}
+
+/* --- ANIMACIÓN DE ERROR (SHAKE) --- */
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+    75% {
+        transform: translateX(-5px);
+    }
+}
+
+.form-invalid-shake {
+    animation: shake 0.4s ease-in-out;
 }

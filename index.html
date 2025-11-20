@@ -1,19 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-T">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="icon.png">
+    <meta name="theme-color" content="#000000">
+    
     <title>Confirmación de Boda</title>
-    <meta property="og:title" content="Formulario de Confirmación de Boda">    
-    <meta property="og:description" content="Confirmación de asistencia a la boda de Kelly & Boris.">    
-    <meta property="og:url" content="https://borish127.github.io/formulario/" />    
-    <meta property="og:image" content="https://borish127.github.io/formulario/wsap1200x630.jpg">
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="confirmation_form">
+    <link rel="icon" type="image/png" href="icon.png">
     
     <!-- 1. Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -39,8 +32,8 @@
         
         <!-- Encabezado -->
         <div class="p-8 form-header">
-            <h1 class="text-3xl md:text-4xl font-bold text-center text-white">¡Nos Casamos!</h1>
-            <p class="text-center text-lg text-gray-400 mt-2">Y nos encantaría celebrar contigo</p>
+            <h1 class="text-3xl md:text-4xl font-bold text-center">¡Nos Casamos!</h1>
+            <p class="text-center text-lg mt-2">Y nos encantaría celebrar contigo</p>
         </div>
         
         <!-- Formulario -->
@@ -51,7 +44,7 @@
                 <div class="text-center">
                     <i class="fas fa-heart text-5xl icon-primary mb-6"></i>
                     <h2 class="text-3xl font-bold mb-4">Confirma tu Asistencia</h2>
-                    <p class="text-gray-600 text-lg mb-8">
+                    <p class="text-lg mb-8">
                         Por favor, rellena este breve formulario para ayudarnos a organizar el gran día.
                     </p>
                     <button type="button" class="btn-primary" data-nav="next">
@@ -65,7 +58,7 @@
                 <div class="space-y-8">
                     <!-- Pregunta 1: Nombre -->
                     <div>
-                        <label for="full-name" class="flex items-center text-xl font-semibold text-gray-800 mb-4">
+                        <label for="full-name" class="flex items-center text-xl font-semibold mb-4">
                             <i class="fas fa-user-edit text-2xl icon-primary w-8 mr-3"></i>
                             Nombre completo
                         </label>
@@ -74,7 +67,7 @@
                     
                     <!-- Pregunta 2: Asistencia -->
                     <div>
-                        <h3 class="flex items-center text-xl font-semibold text-gray-800 mb-3">
+                        <h3 class="flex items-center text-xl font-semibold mb-3">
                             <i class="fas fa-heart text-2xl icon-primary w-8 mr-3"></i>
                             ¿Asistirás a nuestra boda?
                         </h3>
@@ -126,7 +119,7 @@
                 <div class="space-y-6">
                     <!-- Pregunta 4: Adultos -->
                     <div>
-                        <label for="num-adultos" class="flex items-center text-xl font-semibold text-gray-800 mb-3">
+                        <label for="num-adultos" class="flex items-center text-xl font-semibold mb-3">
                             <i class="fas fa-users text-2xl icon-primary w-8 mr-3"></i>
                             Número de adultos (incluyéndote)
                         </label>
@@ -147,7 +140,7 @@
                     
                     <!-- Pregunta 5: Niños -->
                     <div>
-                        <label for="num-ninos" class="flex items-center text-xl font-semibold text-gray-800 mb-3">
+                        <label for="num-ninos" class="flex items-center text-xl font-semibold mb-3">
                             <i class="fas fa-child text-2xl icon-primary w-8 mr-3"></i>
                             Número de niños (2-12 años)
                         </label>
@@ -168,7 +161,7 @@
                     
                     <!-- Pregunta 6: Bebés -->
                     <div>
-                        <label for="num-bebes" class="flex items-center text-xl font-semibold text-gray-800 mb-3">
+                        <label for="num-bebes" class="flex items-center text-xl font-semibold mb-3">
                             <i class="fas fa-baby text-2xl icon-primary w-8 mr-3"></i>
                             Número de bebés (menor de 2 años)
                         </label>
@@ -189,7 +182,7 @@
                     
                     <!-- Pregunta 7: Nombres -->
                     <div>
-                        <label for="nombres-grupo" class="flex items-center text-xl font-semibold text-gray-800 mb-3">
+                        <label for="nombres-grupo" class="flex items-center text-xl font-semibold mb-3">
                             <i class="fas fa-pencil-alt text-2xl icon-primary w-8 mr-3"></i>
                             Escribe los nombres de cada uno
                         </label>
@@ -201,7 +194,7 @@
             <!-- PÁGINA 4: MENÚ SOLO -->
             <section id="page-4" class="page">
                 <div>
-                    <h3 class="flex items-center text-xl font-semibold text-gray-800 mb-3">
+                    <h3 class="flex items-center text-xl font-semibold mb-3">
                         <i class="fas fa-utensils text-2xl icon-primary w-8 mr-3"></i>
                         Selecciona el menú de tu preferencia
                         </h3>
@@ -216,7 +209,7 @@
                     
                     <!-- Campo "Otro" condicional -->
                     <div id="otro-solo-container" class="mt-4 hidden">
-                        <label for="otro-solo-spec" class="font-semibold text-gray-700">Por favor, especifica tu menú:</label>
+                        <label for="otro-solo-spec" class="font-semibold">Por favor, especifica tu menú:</label>
                         <textarea id="otro-solo-spec" name="otro-solo-spec" class="form-textarea mt-2" placeholder="Indica aquí tus necesidades alimentarias..."></textarea>
                     </div>
                 </div>
@@ -225,15 +218,15 @@
             <!-- PÁGINA 5: MENÚ GRUPO -->
             <section id="page-5" class="page">
                 <div>
-                    <h3 class="flex items-center text-xl font-semibold text-gray-800 mb-4">
+                    <h3 class="flex items-center text-xl font-semibold mb-4">
                         <i class="fas fa-utensils text-2xl icon-primary w-8 mr-3"></i>
                         Selecciona la cantidad por cada menú
                     </h3>
-                    <p class="text-gray-600 mb-6">Contando cada integrante del grupo (adultos y niños), indica cuántos menús de cada tipo necesitan.</p>
+                    <p class="mb-6">Contando cada integrante del grupo (adultos y niños), indica cuántos menús de cada tipo necesitan.</p>
                     
                     <div class="space-y-4">
                         <div class="flex items-center justify-between">
-                            <label for="menu-carne" class="font-medium text-gray-700">Carne</label>
+                            <label for="menu-carne" class="font-medium">Carne</label>
                             <!-- Selector de cantidad -->
                             <div class="quantity-input-wrapper">
                                 <input type="number" id="menu-carne" name="menu-carne" class="hidden-number-input" min="0" value="0">
@@ -249,7 +242,7 @@
                             </div>
                         </div>
                         <div class="flex items-center justify-between">
-                            <label for="menu-vegetariano" class="font-medium text-gray-700">Vegetariano</label>
+                            <label for="menu-vegetariano" class="font-medium">Vegetariano</label>
                             <!-- Selector de cantidad -->
                             <div class="quantity-input-wrapper">
                                 <input type="number" id="menu-vegetariano" name="menu-vegetariano" class="hidden-number-input" min="0" value="0">
@@ -265,7 +258,7 @@
                             </div>
                         </div>
                         <div class="flex items-center justify-between">
-                            <label for="menu-vegano" class="font-medium text-gray-700">Vegano</label>
+                            <label for="menu-vegano" class="font-medium">Vegano</label>
                             <!-- Selector de cantidad -->
                             <div class="quantity-input-wrapper">
                                 <input type="number" id="menu-vegano" name="menu-vegano" class="hidden-number-input" min="0" value="0">
@@ -281,7 +274,7 @@
                             </div>
                         </div>
                         <div class="flex items-center justify-between">
-                            <label for="menu-sin-gluten" class="font-medium text-gray-700">Sin gluten</label>
+                            <label for="menu-sin-gluten" class="font-medium">Sin gluten</label>
                             <!-- Selector de cantidad -->
                             <div class="quantity-input-wrapper">
                                 <input type="number" id="menu-sin-gluten" name="menu-sin-gluten" class="hidden-number-input" min="0" value="0">
@@ -297,7 +290,7 @@
                             </div>
                         </div>
                         <div class="flex items-center justify-between">
-                            <label for="menu-sin-lactosa" class="font-medium text-gray-700">Sin lactosa</label>
+                            <label for="menu-sin-lactosa" class="font-medium">Sin lactosa</label>
                             <!-- Selector de cantidad -->
                             <div class="quantity-input-wrapper">
                                 <input type="number" id="menu-sin-lactosa" name="menu-sin-lactosa" class="hidden-number-input" min="0" value="0">
@@ -313,7 +306,7 @@
                             </div>
                         </div>
                         <div class="flex items-center justify-between">
-                            <label for="menu-otro" class="font-medium text-gray-700">Otro</label>
+                            <label for="menu-otro" class="font-medium">Otro</label>
                             <!-- Selector de cantidad -->
                             <div class="quantity-input-wrapper">
                                 <input type="number" id="menu-otro" name="menu-otro" class="hidden-number-input" min="0" value="0">
@@ -332,7 +325,7 @@
                     
                     <!-- Campo "Otro" condicional -->
                     <div id="otro-grupo-container" class="mt-6 hidden">
-                        <label for="otro-grupo-spec" class="font-semibold text-gray-700">Por favor, especifica el/los menú(s) "Otro":</label>
+                        <label for="otro-grupo-spec" class="font-semibold">Por favor, especifica el/los menú(s) "Otro":</label>
                         <textarea id="otro-grupo-spec" name="otro-grupo-spec" class="form-textarea mt-2" placeholder="Indica aquí las necesidades alimentarias..."></textarea>
                     </div>
                 </div>
@@ -343,10 +336,10 @@
                 <div class="text-center">
                     <i class="far fa-envelope-open text-5xl icon-primary mb-6"></i>
                     <h2 class="text-3xl font-bold mb-4">Lamentamos no contar con tu presencia</h2>
-                    <p class="text-gray-600 text-lg mb-8">
+                    <p class="text-lg mb-8">
                         ¡Igualmente te enviamos un fuerte abrazo!
                     </p>
-                    <label for="mensaje-no-asiste" class="flex items-center text-xl font-semibold text-gray-800 mb-3">
+                    <label for="mensaje-no-asiste" class="flex items-center text-xl font-semibold mb-3">
                         <i class="fas fa-pencil-alt text-2xl icon-primary w-8 mr-3"></i>
                         ¿Quieres dejar algún mensaje para la pareja?
                     </label>
@@ -359,10 +352,10 @@
                 <div class="text-center">
                     <i class="fas fa-glass-cheers text-5xl icon-primary mb-6"></i>
                     <h2 class="text-3xl font-bold mb-4">¡Gracias por completar!</h2>
-                    <p class="text-gray-600 text-lg mb-8">
+                    <p class="text-lg mb-8">
                         ¡Te esperamos para celebrar juntos!
                     </p>
-                    <label for="mensaje-si-asiste" class="flex items-center text-xl font-semibold text-gray-800 mb-3">
+                    <label for="mensaje-si-asiste" class="flex items-center text-xl font-semibold mb-3">
                         <i class="fas fa-pencil-alt text-2xl icon-primary w-8 mr-3"></i>
                         ¿Quieres dejar algún mensaje para la pareja?
                     </label>
@@ -375,12 +368,12 @@
                 <div class="text-center">
                     <i class="fas fa-gift text-5xl icon-primary mb-6"></i>
                     <h2 class="text-3xl font-bold mb-4">¡Formulario Enviado!</h2>
-                    <p class="text-gray-600 text-lg mb-8">
+                    <p class="text-lg mb-8">
                         Tu respuesta ha sido registrada. ¡Muchas gracias!
                     </p>
-                    <a href="https://www.google.com" target="_blank" class="btn-primary inline-flex items-center">
-                        <i class="fas fa-arrow-left mr-2"></i>
-                        Volver a la invitación
+                    <!-- ESTE ES EL BOTÓN QUE AHORA CERRARÁ EL MODAL -->
+                    <a href="#" id="btn-cerrar-modal" class="btn-primary inline-flex items-center">
+                        Cerrar formulario
                     </a>
                 </div>
             </section>
